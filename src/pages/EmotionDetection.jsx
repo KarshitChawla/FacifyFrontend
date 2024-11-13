@@ -25,7 +25,7 @@ const EmotionDetection = () => {
 
   // Redirect to Spotify login for authentication
   const startSpotifyAuthorization = () => {
-    window.location.href = "http://localhost:5000/login";
+    window.location.href = "https://facifybackend.onrender.com/login";
   };
 
   // Extract tokens from URL and set them in state
@@ -38,8 +38,7 @@ const EmotionDetection = () => {
 
       if (token) {
         setSpotifyToken(token);
-        console.log("Token Scopes:", scopes); // Log the token scopes
-        // window.history.replaceState({}, null, window.location.pathname);
+        window.history.replaceState({}, null, window.location.pathname);
       }
     };
 
@@ -135,13 +134,11 @@ const EmotionDetection = () => {
     if (lastEmotion && spotifyToken) {
       try {
         const response = await fetch(
-          `http://localhost:5000/recommendations?access_token=${spotifyToken}&emotion=${lastEmotion}`
+          `https://facifybackend.onrender.com/recommendations?access_token=${spotifyToken}&emotion=${lastEmotion}`
         );
         const data = await response.json();
-        console.log(data);
         setRecommendations(data.tracks || []);
         setCurrentTrackUri(data.tracks[0]?.uri);
-        console.log(currentTrackUri);
       } catch (error) {
         console.error("Error fetching recommendations:", error);
       }
